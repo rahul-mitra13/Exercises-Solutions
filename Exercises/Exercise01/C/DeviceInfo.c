@@ -37,8 +37,7 @@ int main(void)
     cl_platform_id platform[num_platforms];
     err = clGetPlatformIDs(num_platforms, platform, NULL);
     checkError(err, "Getting platforms");
-
-    printf("\nNumber of OpenCL platforms: %d\n", num_platforms);
+    printf("Rahul's OpenCL platform info (2017 Macbook Pro)");
     printf("\n-------------------------\n");
 
     // Investigate each platform
