@@ -60,7 +60,7 @@ const char *KernelSource = "\n" \
 "{                                                                      \n" \
 "   int i = get_global_id(0);                                           \n" \
 "   if(i < count)                                                       \n" \
-"       c[i] = a[i] + b[i];                                             \n" \
+"       c[i] = a[i] * b[i];                                             \n" \
 "}                                                                      \n" \
 "\n";
 
@@ -206,26 +206,7 @@ int main(int argc, char** argv)
         printf("Error: Failed to read output array!\n%s\n", err_code(err));
         exit(1);
     }
-
-    // Test the results
-    correct = 0;
-    float tmp;
-
-    for(i = 0; i < count; i++)
-    {
-        tmp = h_a[i] + h_b[i];     // assign element i of a+b to tmp
-        tmp -= h_c[i];             // compute deviation of expected and output result
-        if(tmp*tmp < TOL*TOL)        // correct if square deviation is less than tolerance squared
-            correct++;
-        else {
-            printf(" tmp %f h_a %f h_b %f h_c %f \n",tmp, h_a[i], h_b[i], h_c[i]);
-        }
-    }
-
-    // summarise results
-    printf("C = A+B:  %d out of %d results were correct.\n", correct, count);
-
-    // cleanup then shutdown
+     // cleanup then shutdown
     clReleaseMemObject(d_a);
     clReleaseMemObject(d_b);
     clReleaseMemObject(d_c);
